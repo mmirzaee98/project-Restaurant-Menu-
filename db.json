@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "dishName": "Spaghetti Carbonara",
+      "price": 12,
+      "dish_description": "Creamy pasta with pancetta and a touch of parmesan."
+    },
+    {
+      "id": "2",
+      "dishName": "Margherita Pizza",
+      "price": 10,
+      "dish_description": "Classic pizza with fresh mozzarella, basil, and tomato sauce."
+    },
+    {
+      "id": "3",
+      "dishName": "gormrsabzi",
+      "price": 20,
+      "dish_description": "A description..."
+    },
+    {
+      "dishName": "Ash-e Jo",
+      "price": 7,
+      "dish_description": "Persian Barley, Herb and Bean Pottage",
+      "id": "4"
+    }
+  ]
+}

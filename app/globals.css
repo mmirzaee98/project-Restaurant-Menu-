@@ -1,42 +1,49 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Container to make the table responsive */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin: 2rem 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Styled table */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+  min-width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+/* Table header styling */
+.styled-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Table header cells */
+.styled-table th {
+  padding: 12px 15px;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* Table body cells */
+.styled-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #dddddd;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Zebra striping */
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* Last row border */
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+/* Hover effect */
+.styled-table tbody tr:hover {
+  background-color: #f1f1f1;
 }
