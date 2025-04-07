@@ -3,6 +3,46 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+// Server action to create a new item
+export async function createItem(formData) {
+    const dishName = formData.get('dishName');
+    const price = formData.get('price');
+    const dish_description = formData.get('dish_description');
+  
+    // Fetch the existing items to get the latest ID
+    const resGet = await fetch('http://localhost:4000/items');
+    if (!resGet.ok) {
+      const error = await resGet.json();
+      throw new Error(error.message || 'Failed to fetch items');
+    }
+    const items = await resGet.json();
+  
+    // Get the last ID and increment it by 1
+    const lastId = items.length > 0 ? Math.max(...items.map(item => item.id)) : 0;
+    const newId = lastId + 1;
+  
+    // Create the new item with the incremented ID
+    const newItem = {
+      id: newId,
+      dishName,
+      price: Number(price),
+      dish_description
+    };
+  
+    // Send the new item to the server
+    const resPost = await fetch('http://localhost:4000/items', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newItem),
+    });
+  
+    if (!resPost.ok) {
+      const error = await resPost.json();
+      throw new Error(error.message || 'Failed to create item');
+    }
+  }
+  
+
 export default function MenuItemForm({ initialData = {}, action }) {
   const router = useRouter();
 
@@ -43,7 +83,7 @@ export default function MenuItemForm({ initialData = {}, action }) {
       formData.append('price', price);
       formData.append('dish_description', dishDescription);
 
-      await action(formData); // Calls createItem on the server
+      await createItem(formData); // Calls createItem on the server
       router.push('/admin');  // Redirect to /admin if successful
     } catch (error) {
       // If the server action throws an error (e.g., negative price),
