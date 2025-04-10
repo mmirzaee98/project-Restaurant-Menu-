@@ -8,7 +8,7 @@ async function getItem(id) {
   return res.json();
 }
 
-/** Generate static pages for up to the first 10 items */
+/**  up to the first 10 items is generated static pages*/
 export async function generateStaticParams() {
   const res = await fetch('http://localhost:4000/items');
   const items = await res.json();

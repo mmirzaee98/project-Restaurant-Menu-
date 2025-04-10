@@ -33,11 +33,15 @@ export default function MenuItemForm({ initialData = {}, action }) {
 
     try {
       const formData = new FormData();
-      // DO NOT append an id so JSON Server can auto-generate it
+      //  JSON Server can auto-generate id I DO NOT append id
       formData.append('dishName', dishName);
       formData.append('price', price);
       formData.append('dish_description', dishDescription);
 
+      // ✅ Send ID if editing
+      if (initialData?.id) {
+        formData.append('id', initialData.id);
+      }
       await action(formData);
       router.push('/admin');
     } catch (error) {

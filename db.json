@@ -20,15 +20,39 @@
     },
     {
       "dishName": "Ash-e Jo",
-      "price": 7,
+      "price": 10,
       "dish_description": "Persian Barley, Herb and Bean Pottage",
       "id": "4"
     },
     {
-      "id": 5,
       "dishName": "qwerty",
-      "price": 7,
-      "dish_description": "asdfghjkqwerty"
+      "price": 9,
+      "dish_description": "asdfghjkqwerty",
+      "id": "5"
+    },
+    {
+      "id": "6",
+      "dishName": "kabab",
+      "price": 35,
+      "dish_description": "Kebabs consist of cut up ground meat, sometimes with vegetables and various other accompaniments according to the specific recipe."
+    },
+    {
+      "dishName": "Zereshk Polo Morgh ",
+      "price": 26,
+      "dish_description": "Persian Barberry Rice with Chicken",
+      "id": "7"
+    },
+    {
+      "dishName": "qwer",
+      "price": 3,
+      "dish_description": "asdfghjkloiu",
+      "id": "8"
+    },
+    {
+      "dishName": "qwert",
+      "price": 2,
+      "dish_description": "zxcvbnmkljhg",
+      "id": "9"
     }
   ]
 }

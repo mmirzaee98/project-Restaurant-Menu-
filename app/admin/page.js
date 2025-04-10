@@ -18,8 +18,7 @@ export async function deleteItem(formData) {
   // On-demand revalidation
   revalidatePath('/admin');
   revalidatePath('/collection');
-  // If you want to revalidate each item page, you could also do:
-  // revalidatePath(`/collection/${id}`);
+ 
 }
 
 export default async function AdminPage() {
