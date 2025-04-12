@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 // Fetch all items from JSON Server
 async function getItems() {
-  const res = await fetch('http://localhost:4000/items');
+  const res = await fetch('http://localhost:4000/collection');
   if (!res.ok) throw new Error('Failed to fetch items');
   return res.json();
 }

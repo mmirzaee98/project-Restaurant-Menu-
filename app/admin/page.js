@@ -1,21 +1,21 @@
 // app/admin/page.js
 import { revalidatePath } from 'next/cache';
 
-// Fetch all items
+// Get all items from the collection API
 async function getItems() {
-  const res = await fetch('http://localhost:4000/items');
+  const res = await fetch('http://localhost:4000/collection');
   if (!res.ok) throw new Error('Failed to fetch items');
   return res.json();
 }
 
-// Server action for deleting an item
+// Server-side action to delete an item
 export async function deleteItem(formData) {
   'use server';
   const id = formData.get('id');
-  await fetch(`http://localhost:4000/items/${id}`, {
+  await fetch(`http://localhost:4000/collection/${id}`, {
     method: 'DELETE',
   });
-  // On-demand revalidation
+ // Refresh the admin and collection pages after deletion
   revalidatePath('/admin');
   revalidatePath('/collection');
  

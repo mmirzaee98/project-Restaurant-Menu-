@@ -1,5 +1,5 @@
 {
-  "items": [
+  "collection": [
     {
       "id": "1",
       "dishName": "Spaghetti Carbonara",
@@ -26,7 +26,7 @@
     },
     {
       "dishName": "qwerty",
-      "price": 9,
+      "price": 11,
       "dish_description": "asdfghjkqwerty",
       "id": "5"
     },
@@ -43,16 +43,16 @@
       "id": "7"
     },
     {
-      "dishName": "qwer",
-      "price": 3,
-      "dish_description": "asdfghjkloiu",
-      "id": "8"
+      "dishName": "One Pot Spaghetti",
+      "price": 18,
+      "dish_description": "This One Pot Spaghetti recipe has a flavorful meat sauce that you can make with a jar of sauce or my homemade marinara recipe! This recipe uses simple seasonings and a dab of cream cheese for a finishing touch!",
+      "id": "9"
     },
     {
-      "dishName": "qwert",
-      "price": 2,
-      "dish_description": "zxcvbnmkljhg",
-      "id": "9"
+      "dishName": "Postman Pizza",
+      "price": 17,
+      "dish_description": "Created via Postman.",
+      "id": "10"
     }
   ]
 }

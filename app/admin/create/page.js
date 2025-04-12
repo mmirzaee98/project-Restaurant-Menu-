@@ -3,25 +3,25 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-// Server action to create a new item
+// Server-side function to create a new item
 export async function createItem(formData) {
     const dishName = formData.get('dishName');
     const price = formData.get('price');
     const dish_description = formData.get('dish_description');
   
-    // Fetch the existing items to get the latest ID
-    const resGet = await fetch('http://localhost:4000/items');
+  // Fetch all existing items to determine the next available ID
+    const resGet = await fetch('http://localhost:4000/collection');
     if (!resGet.ok) {
       const error = await resGet.json();
       throw new Error(error.message || 'Failed to fetch items');
     }
     const items = await resGet.json();
   
-    //   i increment ID by 1n  to get the last ID 
+ // Increment the highest current ID by 1 to get the new item's ID
     const lastId = items.length > 0 ? Math.max(...items.map(item => item.id)) : 0;
     const newId = lastId + 1;
   
-    // Create the new item with the incremented ID
+  // Create a new item object
     const newItem = {
       id: String(newId), // make sure the ID is string
       dishName: formData.get('dishName'),
@@ -29,8 +29,8 @@ export async function createItem(formData) {
       dish_description: formData.get('dish_description')
     };
     
-    // In this i send the new item to the server
-    const resPost = await fetch('http://localhost:4000/items', {
+  // Send the new item to the server using a POST request
+    const resPost = await fetch('http://localhost:4000/collection', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newItem),
@@ -46,7 +46,7 @@ export async function createItem(formData) {
 export default function MenuItemForm({ initialData = {}, action }) {
   const router = useRouter();
 
-  // It initialize state with fallback values
+// Set up form fields with initial values if available
   const [dishName, setDishName] = useState(initialData.dishName ?? '');
   const [price, setPrice] = useState(initialData.price ?? 0);
   const [dishDescription, setDishDescription] = useState(initialData.dish_description ?? '');
@@ -55,10 +55,10 @@ export default function MenuItemForm({ initialData = {}, action }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Clear old errors
+  
     setErrors([]);
 
-    // Is VALIDATION of CLIENT-SIDE
+  // Perform client-side validation
     const validationErrors = [];
     if (dishName.length < 3 || dishName.length > 50) {
       validationErrors.push('Dish name must be between 3 and 50 characters in length.');
@@ -70,21 +70,21 @@ export default function MenuItemForm({ initialData = {}, action }) {
       validationErrors.push('Dish description must be at least 10 characters.');
     }
 
-    // If there are errors, show them inline and STOP
+  // If validation fails, display errors and stop form submission
     if (validationErrors.length > 0) {
       setErrors(validationErrors);
       return;
     }
 
-    // No errors, here we  call the server action in a try/catch
+  // If validation passes, call the server function
     try {
       const formData = new FormData();
       formData.append('dishName', dishName);
       formData.append('price', price);
       formData.append('dish_description', dishDescription);
 
-      await createItem(formData); //  we Call createItem on the server
-      router.push('/admin');  //  Here we redirect to /admin if successful
+      await createItem(formData); // Call server-side create function
+      router.push('/admin');// Redirect to the admin page on success 
     } catch (error) {
       
       setErrors([error.message]);

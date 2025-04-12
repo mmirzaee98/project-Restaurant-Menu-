@@ -3,18 +3,19 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import MenuItemForm from '../../../components/MenuItemForm';
 
-// ✅ Updated: safer way to fetch item by ID
+// Fetch a single item by ID from the collection
 async function getItem(id) {
-  const res = await fetch('http://localhost:4000/items');
+  const res = await fetch('http://localhost:4000/collection');
   if (!res.ok) throw new Error('Failed to fetch items');
   const items = await res.json();
 
+// Find the item that matches the given ID
   const item = items.find((item) => String(item.id) === String(id));
   if (!item) throw new Error('Item not found');
   return item;
 }
 
-// ✅ Server action to update the item
+// Handle form submission to update an existing item
 export async function updateItem(formData) {
   'use server';
 
@@ -29,17 +30,20 @@ export async function updateItem(formData) {
     dish_description
   };
 
-  await fetch(`http://localhost:4000/items/${id}`, {
+  // Send a PUT request to update the item
+  await fetch(`http://localhost:4000/collection/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(updatedItem),
   });
 
-  // ✅  necessary paths for Revalidate
+  // Refresh relevant pages to reflect the changes
   revalidatePath('/admin');
   revalidatePath('/collection');
   revalidatePath(`/collection/${id}`);
   revalidatePath(`/admin/edit/${id}`);
+
+  // Redirect back to the admin dashboard
   redirect('/admin');
 }
 

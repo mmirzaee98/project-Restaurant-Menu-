@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 
 export default function MenuItemForm({ initialData = {}, action }) {
   const router = useRouter();
+
+// Set initial form state (empty for create, pre-filled for edit)
   const [dishName, setDishName] = useState(initialData.dishName ?? '');
   const [price, setPrice] = useState(initialData.price ?? 0);
   const [dishDescription, setDishDescription] = useState(initialData.dish_description ?? '');
@@ -15,7 +17,7 @@ export default function MenuItemForm({ initialData = {}, action }) {
     e.preventDefault();
     setErrors([]);
 
-    // Client-side validation
+  // Run client-side form validation
     const validationErrors = [];
     if (dishName.length < 3 || dishName.length > 50) {
       validationErrors.push("Dish name must be between 3 and 50 characters in length.");
@@ -33,16 +35,18 @@ export default function MenuItemForm({ initialData = {}, action }) {
 
     try {
       const formData = new FormData();
-      //  JSON Server can auto-generate id I DO NOT append id
+// For JSON Server: no need to send an ID when creating a new item
       formData.append('dishName', dishName);
       formData.append('price', price);
       formData.append('dish_description', dishDescription);
 
-      // ✅ Send ID if editing
+// Send the ID only if we're editing an existing item
       if (initialData?.id) {
         formData.append('id', initialData.id);
       }
+// Call the provided server action (create or update)      
       await action(formData);
+// Redirect to admin dashboard after success      
       router.push('/admin');
     } catch (error) {
       setErrors([error.message]);

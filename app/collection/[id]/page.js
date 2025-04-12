@@ -3,14 +3,14 @@ import Link from 'next/link';
 
 /** Fetch a single item by ID */
 async function getItem(id) {
-  const res = await fetch(`http://localhost:4000/items/${id}`);
+  const res = await fetch(`http://localhost:4000/collection/${id}`);
   if (!res.ok) return null;
   return res.json();
 }
 
 /**  up to the first 10 items is generated static pages*/
 export async function generateStaticParams() {
-  const res = await fetch('http://localhost:4000/items');
+  const res = await fetch('http://localhost:4000/collection');
   const items = await res.json();
   return items.slice(0, 10).map((item) => ({
     id: item.id.toString(),
